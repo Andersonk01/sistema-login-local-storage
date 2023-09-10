@@ -1,9 +1,11 @@
 "use client";
 import MouseEvent, { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 const defaultUser = {
-  email: "admin@email.com",
-  password: "admin",
+  email: "anderson@email.com",
+  password: "123",
 };
 
 export const isValidEmail = (email: string) => {
@@ -14,6 +16,7 @@ export const isValidEmail = (email: string) => {
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { push } = useRouter();
 
   const handleSubmit = (
     e: MouseEvent.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -24,11 +27,10 @@ export default function Home() {
       alert("Por favor, insira um email válido.");
       return;
     }
-
+    // if para o usuario padrao
     if (email === defaultUser.email && password === defaultUser.password) {
-      window.location.href = "/dashboard";
-    } else {
-      alert("Senha ou email incorretos");
+      localStorage.setItem("isUserAuthenticated", String(true));
+      push("/dashboard");
     }
 
     const getUser = localStorage.getItem("users");
@@ -36,7 +38,10 @@ export default function Home() {
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].email === email && users[i].password === password) {
-        window.location.href = "/dashboard";
+        localStorage.setItem("isUserAuthenticated", String(true));
+        push("/dashboard");
+      } else {
+        alert("Usuário não encontrado");
       }
     }
   };

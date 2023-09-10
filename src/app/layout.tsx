@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { CheckRouteWrapper } from "@/components/CheckRouteWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
-import { AuthProvider } from "@/context/auth";
 
 export const metadata: Metadata = {
   title: "Sistema de Login",
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <CheckRouteWrapper>{children}</CheckRouteWrapper>
       </body>
     </html>
   );

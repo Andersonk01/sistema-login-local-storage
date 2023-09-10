@@ -10,15 +10,18 @@ export default function Signup() {
     e: MouseEvent.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
     if (!isValidEmail(email)) {
       alert("Por favor, insira um email válido.");
       return;
     }
 
     const existingUsersJSON = localStorage.getItem("users");
+
     const existingUsers = existingUsersJSON
       ? JSON.parse(existingUsersJSON)
       : [];
+
     existingUsers.push({ email, password });
 
     localStorage.setItem("users", JSON.stringify(existingUsers));

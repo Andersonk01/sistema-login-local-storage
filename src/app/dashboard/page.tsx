@@ -1,11 +1,12 @@
 "use client";
-import ProtectedRoute from "@/ProtectedRoute";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-  const isAuthenticated = true;
+  const { push } = useRouter();
 
   const handleLogout = () => {
-    window.location.href = "/";
+    localStorage.removeItem("isUserAuthenticated");
+    push("/");
   };
 
   return (
